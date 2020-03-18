@@ -21,7 +21,7 @@ RUN echo "/usr/bin/pwsh" >> /etc/shells && \
     tdnf erase -y unzip && \
     tdnf clean all
 
-RUN mkdir -p ~/hcx
-WORKDIR ~/test
-Copy . ./PowerCLI-Example-Scripts
+RUN mkdir -p /root/hcx
+WORKDIR /root/hcx
+COPY on-prem-to-cloud-docker.ps1 /root/hcx
 CMD ["/bin/pwsh"]

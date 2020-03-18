@@ -36,13 +36,13 @@ Write-Host "HCXNetworkCloud=$HCXNetworkCloud"
 Write-Host "HCXNetworkOnPrem=$HCXNetworkOnPrem"
 Write-Host "vmName=$vmName"
 
-<#
-$onpremHCX = "172.30.0.171" # This is your on-prem HCX
+#  Change this values to your ENVironment!
+$onpremHCX = "172.30.0.171" # This is the IP or FQDN your on-prem HCX
 $onpremHCXUser = "administrator@vsphere.local"
-$onpremHCXPassword = "VMware1!"
+$onpremHCXPassword = "verySecurePW"
 $HCXNetworkCloud = "L2E_vds-emea-stretched-0-1b039c1f"
 $HCXNetworkOnPrem = "vds-emea-stretched"
-#>
+
 
 Connect-HCXServer $onpremHCX -user $onpremHCXUser -password $onpremHCXPassword
 
