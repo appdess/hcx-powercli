@@ -9,38 +9,12 @@ docker run -e "vmName=MigrateVM-11" -e "onpremHCXPassword=VMware1" -it adess/hcx
 #>
 Set-PowerCLIConfiguration -InvalidCertificateAction Ignore -Confirm:$false | Out-Null
 
+
+#Change this values to your ENVironment!
 $vmName = (Get-ChildItem ENV:vmName).Value
 $onpremHCXPassword = (Get-ChildItem ENV:onpremHCXPassword).Value
-
-<#
-param(
-    [Parameter(Mandatory=$true)]
-    [String]$onpremHCX,
-
-    [Parameter(Mandatory=$true)]
-    [String]$onpremHCXUser,
-
-    [Parameter(Mandatory=$true)]
-    [String]$onpremHCXPassword,
-
-    [Parameter(Mandatory=$true)]
-    [String]$HCXNetworkCloud
-
-    [Parameter(Mandatory=$true)]
-    [String]$HCXNetworkOnPrem
-
-    [Parameter(Mandatory=$true)]
-    [String]$vmName
-)
-#>
-
-
-
-
-#  Change this values to your ENVironment!
 $onpremHCX = "172.30.0.171" # This is the IP or FQDN your on-prem HCX
 $onpremHCXUser = "administrator@vsphere.local"
-#$onpremHCXPassword = "verySecurePW"
 $HCXNetworkCloud = "L2E_vds-emea-stretched-0-1b039c1f"
 $HCXNetworkOnPrem = "vds-emea-stretched"
 
