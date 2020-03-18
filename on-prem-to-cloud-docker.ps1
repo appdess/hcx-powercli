@@ -5,6 +5,9 @@
 .NOTES  Reference: TBD!!
 .NOTES  Docker Command: docker run --rm -it --entrypoint='/usr/bin/pwsh' \
     -v /Users/adess/scripts:/tmp/scripts vmware/powerclicore /tmp/scripts/on-prem-to-cloud-docker.ps1 -onpremHCX 172.30.0.171 -onpremHCXUser administrator@vsphere.local -onpremHCXPassword VMware1! -HCXNetworkCloud L2E_vds-emea-stretched-0-1b039c1f -HCXNetworkOnPrem vds-emea-stretched -vmName MigrateVM-11
+
+docker run --rm -it adess/hcx-migration  -e onpremHCXPassword="VMware1!"
+
 #>
 param(
     [Parameter(Mandatory=$true)]
