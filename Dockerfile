@@ -24,4 +24,4 @@ RUN echo "/usr/bin/pwsh" >> /etc/shells && \
 RUN mkdir -p /root/hcx
 WORKDIR /root/hcx
 COPY on-prem-to-cloud-docker.ps1 /root/hcx
-ENTRYPOINT ["/bin/pwsh"]
+CMD ["/bin/pwsh"]
