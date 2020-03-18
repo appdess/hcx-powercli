@@ -6,9 +6,13 @@
 .NOTES  Docker Command: docker run --rm -it --entrypoint='/usr/bin/pwsh' \
     -v /Users/adess/scripts:/tmp/scripts vmware/powerclicore /tmp/scripts/on-prem-to-cloud-docker.ps1 -onpremHCX 172.30.0.171 -onpremHCXUser administrator@vsphere.local -onpremHCXPassword VMware1! -HCXNetworkCloud L2E_vds-emea-stretched-0-1b039c1f -HCXNetworkOnPrem vds-emea-stretched -vmName MigrateVM-11
 
-docker run --rm -it adess/hcx-migration  -e onpremHCXPassword="VMware1!"
+docker run --rm -it adess/hcx-migration \
+    -e onpremHCXPassword=VMware1!
 
 #>
+$onpremHCXPassword = (Get-ChildItem ENV:onpremHCXPassword).Value
+
+<#
 param(
     [Parameter(Mandatory=$true)]
     [String]$onpremHCX,
@@ -28,16 +32,11 @@ param(
     [Parameter(Mandatory=$true)]
     [String]$vmName
 )
+#>
 
 Set-PowerCLIConfiguration -InvalidCertificateAction Ignore -Confirm:$false | Out-Null
 
-Write-Host -ForegroundColor magenta "you submitted the following variables"
-Write-Host "onpremHCX=$onpremHCX"
-Write-Host "onpremHCXUser=$onpremHCXUser"
-Write-Host "onpremHCXPassword=$onpremHCXPassword"
-Write-Host "HCXNetworkCloud=$HCXNetworkCloud"
-Write-Host "HCXNetworkOnPrem=$HCXNetworkOnPrem"
-Write-Host "vmName=$vmName"
+
 
 #  Change this values to your ENVironment!
 $onpremHCX = "172.30.0.171" # This is the IP or FQDN your on-prem HCX
@@ -46,6 +45,13 @@ $onpremHCXPassword = "verySecurePW"
 $HCXNetworkCloud = "L2E_vds-emea-stretched-0-1b039c1f"
 $HCXNetworkOnPrem = "vds-emea-stretched"
 
+Write-Host -ForegroundColor magenta "you submitted the following variables"
+Write-Host "onpremHCX=$onpremHCX"
+Write-Host "onpremHCXUser=$onpremHCXUser"
+Write-Host "onpremHCXPassword=$onpremHCXPassword"
+Write-Host "HCXNetworkCloud=$HCXNetworkCloud"
+Write-Host "HCXNetworkOnPrem=$HCXNetworkOnPrem"
+Write-Host "vmName=$vmName"
 
 Connect-HCXServer $onpremHCX -user $onpremHCXUser -password $onpremHCXPassword
 
