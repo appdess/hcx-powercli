@@ -2,17 +2,14 @@
 .SYNOPSIS HCX-Migration Script in docker with external input
 .NOTES  Author:  Alex Dess
 .NOTES  Site:    alexdess.cloud
-.NOTES  Reference: TBD!!
-.NOTES  Docker Command: docker run --rm -it --entrypoint='/usr/bin/pwsh' \
-    -v /Users/adess/scripts:/tmp/scripts vmware/powerclicore /tmp/scripts/on-prem-to-cloud-docker.ps1 -onpremHCX 172.30.0.171 -onpremHCXUser administrator@vsphere.local -onpremHCXPassword VMware1! -HCXNetworkCloud L2E_vds-emea-stretched-0-1b039c1f -HCXNetworkOnPrem vds-emea-stretched -vmName MigrateVM-11
 
-
-# Pass variables to the runtime:
-docker run -e "onpremHCXPassword=VMware1" -it adess/hcx-migration
+# Pass variables to the runtime, adjusted so you need to only pass PW + VM to be migrated!
+docker run -e "vmName=MigrateVM-11" -e "onpremHCXPassword=VMware1" -it adess/hcx-migration
 
 #>
 Set-PowerCLIConfiguration -InvalidCertificateAction Ignore -Confirm:$false | Out-Null
 
+$vmName = (Get-ChildItem ENV:vmName).Value
 $onpremHCXPassword = (Get-ChildItem ENV:onpremHCXPassword).Value
 
 <#
@@ -43,7 +40,7 @@ param(
 #  Change this values to your ENVironment!
 $onpremHCX = "172.30.0.171" # This is the IP or FQDN your on-prem HCX
 $onpremHCXUser = "administrator@vsphere.local"
-$onpremHCXPassword = "verySecurePW"
+#$onpremHCXPassword = "verySecurePW"
 $HCXNetworkCloud = "L2E_vds-emea-stretched-0-1b039c1f"
 $HCXNetworkOnPrem = "vds-emea-stretched"
 
